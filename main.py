@@ -18,13 +18,6 @@ pygame.display.set_caption("Breakout")
 
 
 
-listi = []
-
-for i in range(5, 101, 5):
-    listi.append(i)
-
-
-
 # colors
 
 red = [255,0,0]
@@ -97,9 +90,10 @@ pygame.display.update()
 
 run = True
 
-def mainloop(run, x_slider, x_slider_2, x_ball, y_ball, x_ball_old, y_ball_old, score_1, score_2, length_of_slider_1, length_of_slider_2):
+def mainloop(run, x_slider, x_slider_2, x_ball, y_ball, x_ball_old, y_ball_old, score_1, score_2, t):
     while run:
-        pygame.time.delay(40)
+        pygame.time.delay(int(t))
+        t -= 0.001
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
@@ -122,13 +116,13 @@ def mainloop(run, x_slider, x_slider_2, x_ball, y_ball, x_ball_old, y_ball_old, 
         # restart
         
         if keys[pygame.K_r]:
-            mainloop(True, 300, 300, x_ball, 250, 0, 0, 0, 0, 90,90)
+            mainloop(True, 300, 300, x_ball, 250, 0, 0, 0, 0, 40)
 
 
         # motion of ball vertically
     
         # hitting the striker_1
-        if y_ball == 450 and x_ball>= x_slider and x_ball < x_slider + length_of_slider_1:
+        if y_ball == 450 and x_ball>= x_slider and x_ball < x_slider + 90:
             y_ball_old = y_ball
             y_ball-=10
             score_2+=1
@@ -145,7 +139,7 @@ def mainloop(run, x_slider, x_slider_2, x_ball, y_ball, x_ball_old, y_ball_old, 
             else:
                 x_ball-=10
         # hitting the striker_2
-        elif y_ball == 50 and x_ball>= x_slider_2 and x_ball < x_slider_2 + length_of_slider_1:
+        elif y_ball == 50 and x_ball>= x_slider_2 and x_ball < x_slider_2 + 90:
             y_ball_old = y_ball
             y_ball +=10
             score_1+=1
@@ -154,7 +148,7 @@ def mainloop(run, x_slider, x_slider_2, x_ball, y_ball, x_ball_old, y_ball_old, 
             y_ball_old = y_ball
             y_ball+=10
             x_ball += (x_ball- x_ball_old)
-            #score_2 -= 1
+            score_2 -= 1
         # going above the striker_2
         elif y_ball_old > y_ball and y_ball <= 50:
             y_ball_old = y_ball
@@ -174,19 +168,19 @@ def mainloop(run, x_slider, x_slider_2, x_ball, y_ball, x_ball_old, y_ball_old, 
             x_ball_old = x_ball
             x_ball -= 10
         # hitting the striker_1 while going right
-        elif x_ball>= x_slider and x_ball <= x_slider + length_of_slider_1 and x_ball_old < x_ball:
+        elif x_ball>= x_slider and x_ball <= x_slider + 90 and x_ball_old < x_ball:
             x_ball_old = x_ball
             x_ball +=10
         # hitting the striker_1 while going left
-        elif x_ball>= x_slider and x_ball <= x_slider + length_of_slider_1 and x_ball_old > x_ball:
+        elif x_ball>= x_slider and x_ball <= x_slider + 90 and x_ball_old > x_ball:
             x_ball_old = x_ball
             x_ball -=10
         # hitting the striker_2 while going right
-        elif x_ball>= x_slider_2 and x_ball <= x_slider_2 + length_of_slider_2 and x_ball_old < x_ball:
+        elif x_ball>= x_slider_2 and x_ball <= x_slider_2 + 90 and x_ball_old < x_ball:
             x_ball_old = x_ball
             x_ball +=10
         # hitting the striker_2 while going left
-        elif x_ball>= x_slider_2 and x_ball <= x_slider_2 + length_of_slider_2 and x_ball_old > x_ball:
+        elif x_ball>= x_slider_2 and x_ball <= x_slider_2 + 90 and x_ball_old > x_ball:
             x_ball_old = x_ball
             x_ball -=10
         # going left in between
@@ -210,20 +204,14 @@ def mainloop(run, x_slider, x_slider_2, x_ball, y_ball, x_ball_old, y_ball_old, 
     
         dis.fill(white)
 
-        # reducing the length
-        if score_1 in listi and length_of_slider_2 > 20:
-            length_of_slider_2 -= 1
-        elif score_2 in listi and length_of_slider_1 > 20:
-            length_of_slider_1 -= 1
-    
-
+ 
     
         #ball
         pygame.draw.circle(dis, red, (x_ball,y_ball), 10, 0)
     
         # sliders
-        pygame.draw.rect(dis, green, [x_slider,460,length_of_slider_1,15])
-        pygame.draw.rect(dis, light_blue, [x_slider_2, 30, length_of_slider_2, 15])
+        pygame.draw.rect(dis, green, [x_slider,460,90,15])
+        pygame.draw.rect(dis, light_blue, [x_slider_2, 30, 90, 15])
 
 
         # text
@@ -278,5 +266,5 @@ def mainloop(run, x_slider, x_slider_2, x_ball, y_ball, x_ball_old, y_ball_old, 
     pygame.quit()
 
 
-mainloop(True, 300, 300, x_ball, 250, 0, 0, 0, 0, 90, 90)
+mainloop(True, 300, 300, x_ball, 250, 0, 0, 0, 0, 40)
 
