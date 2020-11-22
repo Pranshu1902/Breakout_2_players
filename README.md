@@ -7,4 +7,4 @@ Here 2 players can compete among themselves and press "S" whenever they feel to 
 
 For each correct hit you get +1 and for each miss you get -1
 
-As you score, the length of your board decreses
+As you score, the speed of the game increases
