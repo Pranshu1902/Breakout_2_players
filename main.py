@@ -1,3 +1,11 @@
+# Made by Pranshu Aggarwal
+
+# Welcome to breakout for 2 players with NEW rules
+
+# If one player looses the ball the match doesn't end but goes on. Just the player who lost receives a -2. The game is infinite. To stop and to know who won press "S"
+# Use left and rigth arrows to move slider 2 and use "a" and "d" to move slider 1 
+
+
 import pygame
 import random
 
